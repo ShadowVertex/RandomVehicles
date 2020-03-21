@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using GTA;
 using GTA.Native;
 using System.Linq;
+using RandomVehicles.GUI;
 
 namespace RandomVehicles
 {
@@ -15,6 +16,7 @@ namespace RandomVehicles
         private long tick = 0;
         private bool keysActive = false;
         private bool doing = true;
+        private bool showStartupMessages = true;
 
         private List<VehicleHash> availableVehicles = new List<VehicleHash>();
         private List<VehicleHash> availableBoats = new List<VehicleHash>();
@@ -25,28 +27,16 @@ namespace RandomVehicles
         private WeaponTint[] allWeaponTints;
         private VehicleColor[] allVehicleColors;
 
-        int carsCount = 0;
-        int weaponsCount = 0;
+        private int carsCount = 0;
+        private int weaponsCount = 0;
 
-        private List<int> processedPeds = new List<int>();
-        GUI gui = new GUI();
-        Config config = new Config();
-
-        /*private bool debugMode = true;
-        private bool randomizeColor = true;
-        private bool specialClasses = true;
-        private bool trailers = false;
-        private bool randomizeWeapons = true;
-        private bool modVehicles = true;
-        private bool maxModVehicles = false;
-        private bool tintedWeapons = true;
-        private int aiDrivingSpeed = 1000;
-        private int vehicleModChance = 25;
-        private int missionVehicleModChance = 50;*/
+        private HashSet<int> processedPeds = new HashSet<int>();
+        private Config config = new Config();
+        private IGUI gui;
 
         public RandomVehicles()
         {
-            Prepare();
+            Initialize();
             this.Tick += onTick;
             this.KeyUp += onKeyUp;
             this.KeyDown += onKeyDown;
@@ -56,13 +46,18 @@ namespace RandomVehicles
         {
             if (doing) tick++;
 
-            if (tick % 100 == 0)
-            {
-                carsCount = ChangeCars();
-                if (config.randomizeWeapons) weaponsCount = GiveRandomWeapons();
-            }
+            //if (tick % 100 == 0)
+            carsCount = ChangeCars();
+            if (config.randomizeWeapons) weaponsCount = GiveRandomWeapons();
 
             if (config.debugMode) gui.Draw(carsCount + " Cars changed, " + weaponsCount + " Peds equipped", tick.ToString());
+
+            // To show notifications after starting the game
+            if (showStartupMessages && !Game.IsLoading && Game.Player.CanControlCharacter)
+            {
+                gui.ShowStartupMessages();
+                showStartupMessages = false;
+            }
         }
 
         private void onKeyDown(object sender, KeyEventArgs e)
@@ -94,6 +89,7 @@ namespace RandomVehicles
                     UpgradeVehicle(Game.Player.Character.CurrentVehicle);
                     break;
                 case Keys.NumPad5:
+                    VehicleLoader.SaveToFile("scripts//RandomVehicles.txt", availableVehicles);
                     break;
                 case Keys.NumPad6:
                     //UI.ShowSubtitle(config.ReadConfig(), 3000);
@@ -112,110 +108,113 @@ namespace RandomVehicles
         }
 
 
-        private void Prepare()
+        private void Initialize()
         {
             bool errors = false;
 
-            // Read setting from config and show errors if there are any
+            // Init config
             List<string> configErrors = config.ReadConfig();
+
+            // Init GUI
+            if (config.renderText)
+            {
+                gui = new TextGUI();
+            }
+            else
+            {
+                gui = new NoGUI();
+            }
+
+            // Show config errors if there are any
             int i = 0;
             foreach (string configError in configErrors)
             {
                 if (configError == "") continue;
                 i++;
                 errors = true;
-                GTA.UI.Notification.Show(i.ToString() + ": " + configError);
-                /*GTA.UI.Screen.ShowSubtitle(i.ToString() + ": " + configError, 4900);
-                Script.Wait(5000);*/
+                //Notification.Show(i.ToString() + ": " + configError);
+                gui.AddStartupMessage(1, i.ToString() + ": " + configError);
             }
 
             allWeapons = Weapons.getWeaponHashes();
-            //allWeapons = Enum.GetValues(typeof(WeaponHash)).Cast<WeaponHash>().ToArray();
             allWeaponTints = Enum.GetValues(typeof(WeaponTint)).Cast<WeaponTint>().ToArray();
             allVehicleColors = Enum.GetValues(typeof(VehicleColor)).Cast<VehicleColor>().ToArray();
 
-            // TODO clean this
-            if (config.dlcVehicles)
-            {
-                availableVehicles.AddRange(VehicleClasses.missingHashes);
-                availableVehicles.AddRange(VehicleClasses.motorbikes);
-                availableVehicles.AddRange(VehicleClasses.bicycles);
-                availableVehicles.AddRange(VehicleClasses.commercials);
-                availableVehicles.AddRange(VehicleClasses.compacts);
-                availableVehicles.AddRange(VehicleClasses.coupes);
-                availableVehicles.AddRange(VehicleClasses.emergency);
-                availableVehicles.AddRange(VehicleClasses.military);
-                availableVehicles.AddRange(VehicleClasses.muscle);
-                availableVehicles.AddRange(VehicleClasses.offroad);
-                availableVehicles.AddRange(VehicleClasses.pickups);
-                availableVehicles.AddRange(VehicleClasses.sedans);
-                availableVehicles.AddRange(VehicleClasses.service);
-                availableVehicles.AddRange(VehicleClasses.sports);
-                availableVehicles.AddRange(VehicleClasses.sportsClassic);
-                availableVehicles.AddRange(VehicleClasses.super);
-                availableVehicles.AddRange(VehicleClasses.suvs);
-                availableVehicles.AddRange(VehicleClasses.trucks);
-                availableVehicles.AddRange(VehicleClasses.vans);
+            FindAllAvailableVehicles();
 
-                if (config.trailers)
+            if (config.customVehicleList || config.debugMode)
+            {
+                gui.AddStartupMessage(1, "Cars: " + availableVehicles.Count);
+                gui.AddStartupMessage(1, "Boats: " + availableBoats.Count);
+                gui.AddStartupMessage(1, "Planes: " + availablePlanes.Count);
+                gui.AddStartupMessage(1, "Helicopters: " + availableHelis.Count);
+            }
+
+            if (config.customVehicleList)
+            {
+                bool hasErrors = false;
+                if (availableVehicles.Count == 0)
                 {
-                    availableVehicles.AddRange(VehicleClasses.trailers);
+                    gui.ShowNotification("[LAND VEHICLES] section has no valid entries!");
+                    hasErrors = true;
                 }
 
                 if (config.specialClasses)
                 {
-                    availableBoats.AddRange(VehicleClasses.boats);
-                    availablePlanes.AddRange(VehicleClasses.planes);
-                    availableHelis.AddRange(VehicleClasses.helicopters);
+                    if (availableBoats.Count == 0)
+                    {
+                        gui.ShowNotification("[BOATS] section has no valid entries!");
+                        hasErrors = true;
+                    }
+                    if (availablePlanes.Count == 0)
+                    {
+                        gui.ShowNotification("[PLANES] section has no valid entries!");
+                        hasErrors = true;
+                    }
+                    if (availableHelis.Count == 0)
+                    {
+                        gui.ShowNotification("[HELICOPTERS] section has no valid entries!");
+                        hasErrors = true;
+                    }
                 }
-                else
+
+                if (hasErrors)
                 {
-                    availableVehicles.AddRange(VehicleClasses.boats);
-                    availableVehicles.AddRange(VehicleClasses.planes);
-                    availableVehicles.AddRange(VehicleClasses.helicopters);
+                    gui.ShowNotification("Loading custom vehicle list failed. Using the built-in list instead.");
+                    config.customVehicleList = false;
+                    FindAllAvailableVehicles();
                 }
+            }
+
+            //GTA.UI.Screen.ShowSubtitle("RandomVehicles.dll initiated " + (errors ? "with errors" : "sucessfully"), 5000);
+            gui.AddStartupMessage(0, "RandomVehicles.dll initiated " + (errors ? "with errors" : "sucessfully"));
+        }
+
+
+        private void FindAllAvailableVehicles()
+        {
+            List<List<VehicleHash>> allAvailableVehicles;
+            if (config.customVehicleList)
+            {
+                allAvailableVehicles = VehicleLoader.LoadFromFile("scripts//RandomVehiclesList.txt", config.specialClasses, config.trailers);
+                if (allAvailableVehicles.Count == 0) return;
             }
             else
             {
-                availableVehicles.AddRange(VehicleClassesVanilla.motorbikes);
-                availableVehicles.AddRange(VehicleClassesVanilla.bicycles);
-                availableVehicles.AddRange(VehicleClassesVanilla.commercials);
-                availableVehicles.AddRange(VehicleClassesVanilla.compacts);
-                availableVehicles.AddRange(VehicleClassesVanilla.coupes);
-                availableVehicles.AddRange(VehicleClassesVanilla.emergency);
-                availableVehicles.AddRange(VehicleClassesVanilla.military);
-                availableVehicles.AddRange(VehicleClassesVanilla.muscle);
-                availableVehicles.AddRange(VehicleClassesVanilla.offroad);
-                availableVehicles.AddRange(VehicleClassesVanilla.pickups);
-                availableVehicles.AddRange(VehicleClassesVanilla.sedans);
-                availableVehicles.AddRange(VehicleClassesVanilla.service);
-                availableVehicles.AddRange(VehicleClassesVanilla.sports);
-                availableVehicles.AddRange(VehicleClassesVanilla.sportsClassic);
-                availableVehicles.AddRange(VehicleClassesVanilla.super);
-                availableVehicles.AddRange(VehicleClassesVanilla.suvs);
-                availableVehicles.AddRange(VehicleClassesVanilla.trucks);
-                availableVehicles.AddRange(VehicleClassesVanilla.vans);
-
-                if (config.trailers)
+                if (config.dlcVehicles)
                 {
-                    availableVehicles.AddRange(VehicleClassesVanilla.trailers);
-                }
-
-                if (config.specialClasses)
-                {
-                    availableBoats.AddRange(VehicleClassesVanilla.boats);
-                    availablePlanes.AddRange(VehicleClassesVanilla.planes);
-                    availableHelis.AddRange(VehicleClassesVanilla.helicopters);
+                    allAvailableVehicles = VehicleClasses.GetVehicleList(config.specialClasses, config.trailers);
                 }
                 else
                 {
-                    availableVehicles.AddRange(VehicleClassesVanilla.boats);
-                    availableVehicles.AddRange(VehicleClassesVanilla.planes);
-                    availableVehicles.AddRange(VehicleClassesVanilla.helicopters);
+                    allAvailableVehicles = VehicleClassesVanilla.GetVehicleList(config.specialClasses, config.trailers);
                 }
             }
 
-            GTA.UI.Screen.ShowSubtitle("RandomVehicles.dll initiated " + (errors ? "with errors" : "sucessfully"), 5000);
+            availableVehicles = allAvailableVehicles[0];
+            availableBoats = allAvailableVehicles[1];
+            availablePlanes = allAvailableVehicles[2];
+            availableHelis = allAvailableVehicles[3];
         }
 
 
@@ -224,12 +223,12 @@ namespace RandomVehicles
             if (activate && !keysActive)
             {
                 keysActive = true;
-                GTA.UI.Screen.ShowSubtitle("Keys Activated", 4000);
+                gui.ShowSubtitle("Keys Activated", 4000);
             }
             else if (!activate && keysActive)
             {
                 keysActive = false;
-                GTA.UI.Screen.ShowSubtitle("Keys Deactivated", 4000);
+                gui.ShowSubtitle("Keys Deactivated", 4000);
             }
         }
 
@@ -357,7 +356,7 @@ namespace RandomVehicles
                 else
                 {
                     //File.AppendAllText("scripts//RandomVehicles.log ", "unable to load (vehicle): " + newModel.ToString() + "\n");
-                    GTA.UI.Screen.ShowSubtitle("Vehicle Model loading failed!", 4000);
+                    gui.ShowNotification("Vehicle Model loading failed!");
                     return 0;
                 }
 
@@ -439,7 +438,7 @@ namespace RandomVehicles
         private int GiveRandomWeapons()
         {
             int count = 0;
-            List<int> newProcessedPeds = new List<int>();
+            HashSet<int> newProcessedPeds = new HashSet<int>();
 
             Ped[] allPeds = World.GetAllPeds();
             foreach (Ped ped in allPeds)

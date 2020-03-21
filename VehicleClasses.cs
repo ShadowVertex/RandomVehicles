@@ -1,12 +1,14 @@
 ﻿using GTA;
+using System.Collections.Generic;
 
 namespace RandomVehicles
 {
     class VehicleClasses
     {
+        //TODO 2 cars are missing from list???
 
-        public static VehicleHash[] badVehicles = {
-
+        /*public static VehicleHash[] badVehicles = 
+        {
             VehicleHash.CableCar,
             VehicleHash.Submersible,
             VehicleHash.Submersible2,
@@ -18,14 +20,14 @@ namespace RandomVehicles
             VehicleHash.FreightTrailer,
             VehicleHash.MetroTrain,
             VehicleHash.TankerCar
-        };
+        };*/
 
-        public static VehicleHash[] trailers = {
+        public static VehicleHash[] trailers = 
+        {
             VehicleHash.ArmyTanker,
             VehicleHash.ArmyTrailer,
             VehicleHash.ArmyTrailer2,
             VehicleHash.BaleTrailer,
-            VehicleHash.BoatTrailer,
             VehicleHash.BoatTrailer,
             VehicleHash.DockTrailer,
             VehicleHash.GrainTrailer,
@@ -48,7 +50,8 @@ namespace RandomVehicles
             VehicleHash.TVTrailer
         };
 
-        public static VehicleHash[] bicycles = {
+        public static VehicleHash[] bicycles =
+        {
             VehicleHash.Bmx,
             VehicleHash.Cruiser,
             VehicleHash.Fixter,
@@ -58,7 +61,8 @@ namespace RandomVehicles
             VehicleHash.TriBike3
         };
 
-        public static VehicleHash[] boats = {
+        public static VehicleHash[] boats = 
+        {
             VehicleHash.Dinghy,
             VehicleHash.Dinghy2,
             VehicleHash.Dinghy3,
@@ -80,34 +84,22 @@ namespace RandomVehicles
             VehicleHash.Tug
         };
 
-        public static VehicleHash[] commercials = {
-			//VehicleHash.Cerberus,
-			//VehicleHash.Cerberus2,
-			//VehicleHash.Cerberus3,
-			VehicleHash.Hauler2,
-			//VehicleHash.Mule4,
-			VehicleHash.Phantom3,
-			//VehicleHash.Pounder2,
-			//VehicleHash.Terrorbyte
-		};
-
-        public static VehicleHash[] compacts = {
+        public static VehicleHash[] compacts = 
+        {
             VehicleHash.Blista,
             VehicleHash.Brioso,
             VehicleHash.Dilettante,
             VehicleHash.Dilettante2,
             VehicleHash.Issi2,
             VehicleHash.Issi3,
-			//VehicleHash.Issi4,
-			//VehicleHash.Issi5,
-			//VehicleHash.Issi6,
 			VehicleHash.Panto,
             VehicleHash.Prairie,
             VehicleHash.Rhapsody
 
         };
 
-        public static VehicleHash[] coupes = {
+        public static VehicleHash[] coupes = 
+        {
             VehicleHash.CogCabrio,
             VehicleHash.Exemplar,
             VehicleHash.F620,
@@ -124,7 +116,8 @@ namespace RandomVehicles
             VehicleHash.Zion2
         };
 
-        public static VehicleHash[] emergency = {
+        public static VehicleHash[] emergency = 
+        {
             VehicleHash.Ambulance,
             VehicleHash.Barracks,
             VehicleHash.Barracks2,
@@ -145,13 +138,13 @@ namespace RandomVehicles
             VehicleHash.PoliceT,
             VehicleHash.Pranger,
             VehicleHash.Riot,
-			//VehicleHash.Riot2,
 			VehicleHash.Sheriff,
             VehicleHash.Sheriff2
         };
 
-        public static VehicleHash[] helicopters = {
-		    (VehicleHash)0x46699F47,//.Akula,
+        public static VehicleHash[] helicopters = 
+        {
+		    (VehicleHash)0x46699F47, //Akula
 			VehicleHash.Annihilator,
             VehicleHash.Buzzard,
             VehicleHash.Buzzard2,
@@ -172,14 +165,14 @@ namespace RandomVehicles
             VehicleHash.Supervolito2,
             VehicleHash.Swift,
             VehicleHash.Swift2,
-			(VehicleHash)0x58CDAF30,//VehicleHash.Thruster,
+			(VehicleHash)0x58CDAF30, //Thruster
             VehicleHash.Valkyrie,
             VehicleHash.Valkyrie2,
             VehicleHash.Volatus
-
         };
 
-        public static VehicleHash[] motorbikes = {
+        public static VehicleHash[] motorbikes = 
+        {
             VehicleHash.Akuma,
             VehicleHash.Avarus,
             VehicleHash.Bagger,
@@ -191,9 +184,6 @@ namespace RandomVehicles
             VehicleHash.Cliffhanger,
             VehicleHash.Daemon,
             VehicleHash.Daemon2,
-			//VehicleHash.Deathbike,
-			//VehicleHash.Deathbike2,
-			//VehicleHash.Deathbike3,
 			VehicleHash.Defiler,
             VehicleHash.Diablous,
             VehicleHash.Diablous2,
@@ -215,10 +205,8 @@ namespace RandomVehicles
             VehicleHash.Nemesis,
             VehicleHash.Nightblade,
             VehicleHash.Oppressor,
-			//VehicleHash.Oppressor2,
 			VehicleHash.PCJ,
             VehicleHash.RatBike,
-			//(VehicleHash)916547552,
 			VehicleHash.Ruffian,
             VehicleHash.Sanchez,
             VehicleHash.Sanchez2,
@@ -234,55 +222,33 @@ namespace RandomVehicles
             VehicleHash.ZombieB
         };
 
-        public static VehicleHash[] military = {
-			//VehicleHash.APC,
-			//VehicleHash.Barrage,
-			//VehicleHash.Chernobog,
+        public static VehicleHash[] military = 
+        {
 			VehicleHash.HalfTrack,
-			//VehicleHash.Khanjari,
 			VehicleHash.Rhino,
-			//VehicleHash.Scarab,
-			//VehicleHash.Scarab2,
-			//VehicleHash.Scarab3,
 			VehicleHash.Vigilante
         };
 
-        public static VehicleHash[] muscle = {
+        public static VehicleHash[] muscle = 
+        {
             VehicleHash.Blade,
             VehicleHash.BType2,
             VehicleHash.Buccaneer,
             VehicleHash.Buccaneer2,
             VehicleHash.Chino,
             VehicleHash.Chino2,
-			//VehicleHash.Clique, //crash?
-			//VehicleHash.Deviant,
 			VehicleHash.Dominator,
             VehicleHash.Dominator2,
             VehicleHash.Dominator3,
-			//VehicleHash.Dominator4,
-			//VehicleHash.Dominator5,
-			//VehicleHash.Dominator6,
 			VehicleHash.Dukes,
             VehicleHash.Dukes2,
             VehicleHash.Ellie,
             VehicleHash.Faction3,
             VehicleHash.Gauntlet,
             VehicleHash.Gauntlet2,
-			//(VehicleHash)722226637, // Gauntlet3
-			//(VehicleHash)1934384720, // Gauntlet4
-			//VehicleHash.Hermes,
 			VehicleHash.Hotknife,
-			//VehicleHash.Hustler,
-			//VehicleHash.Impaler,
-			//VehicleHash.Impaler2,
-			//VehicleHash.Impaler3,
-			//VehicleHash.Impaler4,
-			//VehicleHash.Imperator,
-			//VehicleHash.Imperator2,
-			//VehicleHash.Imperator3,
 			VehicleHash.Minivan2,
             VehicleHash.Nightshade,
-			//(VehicleHash)2490551588, // Peyote2
 			VehicleHash.Phoenix,
             VehicleHash.Picador,
             VehicleHash.Ruiner,
@@ -291,9 +257,6 @@ namespace RandomVehicles
             VehicleHash.SlamVan,
             VehicleHash.SlamVan2,
             VehicleHash.SlamVan3,
-			//VehicleHash.SlamVan4,
-			//VehicleHash.SlamVan5,
-			//VehicleHash.SlamVan6,
 			VehicleHash.Stalion,
             VehicleHash.Stalion2,
             VehicleHash.Tampa,
@@ -301,18 +264,16 @@ namespace RandomVehicles
             VehicleHash.Tampa3,
             VehicleHash.Tornado5,
             VehicleHash.Tornado6,
-			//VehicleHash.Tulip,
-			//VehicleHash.Vamos,
 			VehicleHash.Vigero,
             VehicleHash.Virgo,
             VehicleHash.Virgo2,
             VehicleHash.Virgo3,
             VehicleHash.Voodoo,
-            VehicleHash.Voodoo2,
-			//VehicleHash.Yosemite
+            VehicleHash.Voodoo2
 		};
 
-        public static VehicleHash[] offroad = {
+        public static VehicleHash[] offroad = 
+        {
             VehicleHash.BfInjection,
             VehicleHash.Bifta,
             VehicleHash.Blazer,
@@ -322,14 +283,7 @@ namespace RandomVehicles
             VehicleHash.Blazer5,
             VehicleHash.Bodhi2,
             VehicleHash.Brawler,
-			//VehicleHash.Bruiser,
-			//VehicleHash.Bruiser2,
-			//VehicleHash.Bruiser3,
-			//VehicleHash.Brutus,
-			//VehicleHash.Brutus2,
-			//VehicleHash.Brutus3,
 			VehicleHash.Caracara,
-			//(VehicleHash)2945871676, // Caracara2
 			VehicleHash.DLoader,
             VehicleHash.Dubsta3,
             VehicleHash.Dune,
@@ -337,28 +291,19 @@ namespace RandomVehicles
             VehicleHash.Dune3,
             VehicleHash.Dune4,
             VehicleHash.Dune5,
-			//VehicleHash.Freecrawler,
 			VehicleHash.Guardian,
-			//(VehicleHash)3932816511, // Hellion
 			VehicleHash.Insurgent,
             VehicleHash.Insurgent2,
             VehicleHash.Insurgent3,
             VehicleHash.Kalahari,
-			//VehicleHash.Kamacho,
 			VehicleHash.Marshall,
-			//VehicleHash.Menacer,
 			VehicleHash.Mesa3,
             VehicleHash.Monster,
-			//VehicleHash.Monster3,
-			//VehicleHash.Monster4,
-			//VehicleHash.Monster5,
 			VehicleHash.NightShark,
             VehicleHash.RancherXL,
             VehicleHash.RancherXL2,
-			//VehicleHash.RCBandito,
 			VehicleHash.Rebel,
             VehicleHash.Rebel2,
-			//VehicleHash.Riata,
 			VehicleHash.Sandking,
             VehicleHash.Sandking2,
             VehicleHash.Technical,
@@ -381,14 +326,15 @@ namespace RandomVehicles
             VehicleHash.Sadler2
         };
 
-        public static VehicleHash[] planes = {
+        public static VehicleHash[] planes = 
+        {
             VehicleHash.AlphaZ1,
-            (VehicleHash)0x81BD2ED0, //VehicleHash.Avenger,
-            (VehicleHash)0x18606535, //VehicleHash.Avenger2,
+            (VehicleHash)0x81BD2ED0, // Avenger
+            (VehicleHash)0x18606535, // Avenger2
             VehicleHash.Besra,
             VehicleHash.Blimp,
             VehicleHash.Blimp2,
-            (VehicleHash)0xEDA4ED97, //VehicleHash.Blimp3,
+            (VehicleHash)0xEDA4ED97, // Blimp3
             VehicleHash.Bombushka,
             VehicleHash.CargoPlane,
             VehicleHash.Cuban800,
@@ -412,17 +358,18 @@ namespace RandomVehicles
             VehicleHash.Seabreeze,
             VehicleHash.Shamal,
             VehicleHash.Starling,
-            (VehicleHash)0x64DE07A1,//VehicleHash.Strikeforce,//VehicleHash.Strikeforce,
+            (VehicleHash)0x64DE07A1, // Strikeforce
             VehicleHash.Stunt,
             VehicleHash.Titan,
             VehicleHash.Tula,
             VehicleHash.Velum,
             VehicleHash.Velum2,
             VehicleHash.Vestra,
-            (VehicleHash)0x1AAD0DED,//VehicleHash.Volatol
+            (VehicleHash)0x1AAD0DED // Volatol
 		};
 
-        public static VehicleHash[] suvs = {
+        public static VehicleHash[] suvs = 
+        {
             VehicleHash.Baller,
             VehicleHash.Baller2,
             VehicleHash.Baller3,
@@ -442,19 +389,17 @@ namespace RandomVehicles
             VehicleHash.Landstalker,
             VehicleHash.Mesa,
             VehicleHash.Mesa2,
-			//(VehicleHash)2465530446,
 			VehicleHash.Patriot,
-			//(VehicleHash)3874056184,
 			VehicleHash.Radi,
             VehicleHash.Rocoto,
             VehicleHash.Seminole,
             VehicleHash.Serrano,
-			//VehicleHash.Toros,
 			VehicleHash.XLS,
             VehicleHash.XLS2
         };
 
-        public static VehicleHash[] sedans = {
+        public static VehicleHash[] sedans = 
+        {
             VehicleHash.Asea,
             VehicleHash.Asea2,
             VehicleHash.Asterope,
@@ -482,7 +427,6 @@ namespace RandomVehicles
             VehicleHash.Schafter4,
             VehicleHash.Schafter5,
             VehicleHash.Schafter6,
-			//VehicleHash.Stafford,
 			VehicleHash.Stanier,
             VehicleHash.Stratum,
             VehicleHash.Stretch,
@@ -494,7 +438,8 @@ namespace RandomVehicles
             VehicleHash.Washington
         };
 
-        public static VehicleHash[] service = {
+        public static VehicleHash[] service = 
+        {
             VehicleHash.Airbus,
             VehicleHash.Airtug,
             VehicleHash.Brickade,
@@ -506,7 +451,6 @@ namespace RandomVehicles
             VehicleHash.Coach,
             VehicleHash.Forklift,
             VehicleHash.Mower,
-			//VehicleHash.PBus2,
 			VehicleHash.RentalBus,
             VehicleHash.Ripley,
             VehicleHash.Tourbus,
@@ -520,7 +464,8 @@ namespace RandomVehicles
             VehicleHash.UtilityTruck3
         };
 
-        public static VehicleHash[] sports = {
+        public static VehicleHash[] sports = 
+        {
             VehicleHash.Alpha,
             VehicleHash.Banshee,
             VehicleHash.BestiaGTS,
@@ -532,10 +477,7 @@ namespace RandomVehicles
             VehicleHash.Carbonizzare,
             VehicleHash.Comet2,
             VehicleHash.Comet3,
-			// VehicleHash.Comet4,
-			//VehicleHash.Comet5,
 			VehicleHash.Coquette,
-			//(VehicleHash)686471183, // Drafter
 			VehicleHash.Elegy,
             VehicleHash.Elegy2,
             VehicleHash.Feltzer2,
@@ -546,53 +488,37 @@ namespace RandomVehicles
             VehicleHash.GB200,
             VehicleHash.HotringSabre,
             VehicleHash.Infernus2,
-			//(VehicleHash)1854776567, // Issi7
-			//VehicleHash.ItaliGTO,
 			VehicleHash.Jester,
             VehicleHash.Jester2,
-			//(VehicleHash)4086055493, //Jugular
 			VehicleHash.Khamelion,
             VehicleHash.Kuruma,
             VehicleHash.Kuruma2,
-			//(VehicleHash)3353694737, // Locust
 			VehicleHash.Lynx,
             VehicleHash.Mamba,
             VehicleHash.Massacro,
             VehicleHash.Massacro2,
-			//(VehicleHash)2674840994, // Neo
-			//VehicleHash.Neon,
 			VehicleHash.Ninef,
             VehicleHash.Ninef2,
             VehicleHash.Omnis,
-			//(VehicleHash)3847255899, // Paragon
-			//(VehicleHash)1416466158, // Paragon2
-			//VehicleHash.Pariah,
 			VehicleHash.Penumbra,
-			//VehicleHash.Raiden,
 			VehicleHash.RapidGT,
             VehicleHash.RapidGT2,
             VehicleHash.Raptor,
-			//VehicleHash.Revolter,
 			VehicleHash.Ruiner2,
             VehicleHash.Ruiner3,
             VehicleHash.Ruston,
-			//VehicleHash.Schlagen,
 			VehicleHash.Schwarzer,
-			//VehicleHash.Sentinel3,
 			VehicleHash.Seven70,
             VehicleHash.Specter,
             VehicleHash.Specter2,
-			//VehicleHash.Streiter,
 			VehicleHash.Sultan,
             VehicleHash.Surano,
             VehicleHash.Tropos,
-            VehicleHash.Verlierer2,
-			//VehicleHash.ZR380,
-			//VehicleHash.ZR3802,
-			//VehicleHash.ZR3803
+            VehicleHash.Verlierer2
 		};
 
-        public static VehicleHash[] sportsClassic = {
+        public static VehicleHash[] sportsClassic = 
+        {
             VehicleHash.Ardent,
             VehicleHash.BType,
             VehicleHash.BType3,
@@ -601,47 +527,35 @@ namespace RandomVehicles
             VehicleHash.Cheetah2,
             VehicleHash.Coquette2,
             VehicleHash.Coquette3,
-			//VehicleHash.Deluxo,
-			//(VehicleHash)310284501, // Dynasty
 			VehicleHash.Fagaloa,
             VehicleHash.Feltzer3,
-			//VehicleHash.GT500,
 			VehicleHash.JB700,
             VehicleHash.Jester3,
             VehicleHash.Lurcher,
             VehicleHash.Manana,
             VehicleHash.Michelli,
             VehicleHash.Monroe,
-			//(VehicleHash)3412338231, // Nebula
 			VehicleHash.Peyote,
             VehicleHash.Pigalle,
             VehicleHash.RapidGT3,
             VehicleHash.Retinue,
-			//VehicleHash.Savestra,
 			VehicleHash.Stinger,
             VehicleHash.StingerGT,
-			//VehicleHash.Stromberg,
-			//VehicleHash.Swinger,
 			VehicleHash.Torero,
             VehicleHash.Tornado,
             VehicleHash.Tornado2,
             VehicleHash.Tornado3,
             VehicleHash.Tornado4,
-			//VehicleHash.Viseris,
-			//VehicleHash.Z190,
-			//(VehicleHash)1862507111, // Zion3
 			VehicleHash.ZType
         };
 
-        public static VehicleHash[] super = {
+        public static VehicleHash[] super = 
+        {
             VehicleHash.Adder,
-			//VehicleHash.Autarch,
 			VehicleHash.Banshee2,
             VehicleHash.Bullet,
             VehicleHash.Cheetah,
             VehicleHash.Cyclone,
-			//VehicleHash.Deveste,
-			//(VehicleHash)1323778901, //Emerus
 			VehicleHash.EntityXXR,
             VehicleHash.EntityXF,
             VehicleHash.FMJ,
@@ -649,8 +563,6 @@ namespace RandomVehicles
             VehicleHash.Infernus,
             VehicleHash.ItaliGTB,
             VehicleHash.ItaliGTB2,
-			//(VehicleHash)3630826055, // Krieger
-			//VehicleHash.LE7B,
 			VehicleHash.Nero,
             VehicleHash.Nero2,
             VehicleHash.Osiris,
@@ -658,16 +570,12 @@ namespace RandomVehicles
             VehicleHash.Pfister811,
             VehicleHash.Prototipo,
             VehicleHash.Reaper,
-			//(VehicleHash)3970348707, // S80
-			//VehicleHash.SC1,
-			//VehicleHash.Scramjet,
 			VehicleHash.Sheava,
             VehicleHash.SultanRS,
             VehicleHash.T20,
             VehicleHash.Taipan,
             VehicleHash.Tempesta,
             VehicleHash.Tezeract,
-			//(VehicleHash)1044193113, // Thrax
 			VehicleHash.Turismo2,
             VehicleHash.Turismor,
             VehicleHash.Tyrant,
@@ -678,11 +586,11 @@ namespace RandomVehicles
             VehicleHash.Voltic,
             VehicleHash.Voltic2,
             VehicleHash.XA21,
-            VehicleHash.Zentorno,
-			//(VehicleHash)3612858749 // Zorrusso
+            VehicleHash.Zentorno
 		};
 
-        public static VehicleHash[] trucks = {
+        public static VehicleHash[] trucks = 
+        {
             VehicleHash.Benson,
             VehicleHash.Biff,
             VehicleHash.Boxville,
@@ -713,10 +621,13 @@ namespace RandomVehicles
             VehicleHash.TipTruck,
             VehicleHash.TipTruck2,
             VehicleHash.TowTruck,
-            VehicleHash.TowTruck2
+            VehicleHash.TowTruck2,
+            VehicleHash.Hauler2,
+            VehicleHash.Phantom3
         };
 
-        public static VehicleHash[] vans = {
+        public static VehicleHash[] vans = 
+        {
             VehicleHash.Burrito,
             VehicleHash.Burrito2,
             VehicleHash.Burrito3,
@@ -737,7 +648,6 @@ namespace RandomVehicles
             VehicleHash.Rumpo3,
             VehicleHash.Speedo,
             VehicleHash.Speedo2,
-			//VehicleHash.Speedo4,
 			VehicleHash.Surfer,
             VehicleHash.Surfer2,
             VehicleHash.Taco,
@@ -745,13 +655,12 @@ namespace RandomVehicles
             VehicleHash.Youga2
         };
 
-        public static VehicleHash[] missingHashes = { (VehicleHash) 0x3201DD49,
+        public static VehicleHash[] missingHashes = 
+        { 
+            (VehicleHash) 0x3201DD49,
 			//  Sports Classics     Z190                z190                190z
-			//0x46699F47, //  Helicopters         AKULA               akula               Akula
 			(VehicleHash) 0xED552C74,
 			//  Super               AUTARCH             autarch             Autarch
-			//0x81BD2ED0, //  Planes              AVENGER             avenger             Avenger
-			//0x18606535, //  Planes              AVENGER             avenger2            Avenger
 			(VehicleHash) 0xF34DFB25,
 			//  Military            BARRAGE             barrage             Barrage
 			(VehicleHash) 0xD6BC7523,
@@ -794,14 +703,10 @@ namespace RandomVehicles
 			//  Sports Classics     STROMBERG           stromberg           Stromberg
 			(VehicleHash) 0xAA6F980A,
 			//  Military            KHANJALI            khanjali            TM - 02 Khanjali
-			//0x58CDAF30, //  Military            THRUSTER            thruster            Thruster
 			(VehicleHash) 0xE8A8BA94,
 			//  Sports Classics     VISERIS             viseris             Viseris
-			//0x1AAD0DED, //  Planes              VOLATOL             volatol             Volatol
 			(VehicleHash) 0x6F946279,
 			//  Muscle              YOSEMITE            yosemite            Yosemite
-			//   (VehicleHash) 0x64DE07A1, //  Planes              STRIKEFORCE         strikeforce         B - 11 Strikeforce
-			//(VehicleHash)0xEDA4ED97, //  Planes              BLIMP3              blimp3              Blimp
 			(VehicleHash) 0x149BD32A,
 			//  Service             PBUS2               pbus2               Festival Bus
 			(VehicleHash) 0xFCC2F483,
@@ -1000,32 +905,59 @@ namespace RandomVehicles
 			// vstr, sport
 			(VehicleHash) 1693751655,
 			// yosemite2, muscle
-			(VehicleHash) 1284356689 // zhaba, offroad
+			(VehicleHash) 1284356689
+            // zhaba, offroad
 		};
 
-        /* public static VehicleHash[] newCars =
-   {
-       (VehicleHash)1118611807, // asbo, compact
-       (VehicleHash)2538945576, // everon, offroad
-       (VehicleHash)340154634,  // formula (pr4), openwheel
-       (VehicleHash)2334210311, // formula2 (r88), openwheel
-       (VehicleHash)960812448,  // furia, super
-       (VehicleHash)3162245632, // imorgon, sport
-       (VehicleHash)394110044,  // jb7002, sportsclassic
-       (VehicleHash)409049982,  // kanjo, compact
-       (VehicleHash)3460613305, // komoda, sport
-       (VehicleHash)3040635986, // minitank, military
-       (VehicleHash)408825843,  // outlaw, offroad
-       (VehicleHash)83136452,   // rebla, suv
-       (VehicleHash)2031587082, // retinue2, sportsclassic
-       (VehicleHash)301304410,  // stryder, motorcycle
-       (VehicleHash)987469656,  // sugoi, sport
-       (VehicleHash)872704284,  // sultan2, sport
-       (VehicleHash)740289177,  // vagrant, offroad
-       (VehicleHash)1456336509, // vstr, sport
-       (VehicleHash)1693751655, // yosemite2, muscle
-       (VehicleHash)1284356689  // zhaba, offroad
-   };*/
+        public static List<List<VehicleHash>> GetVehicleList(bool specialClasses, bool useTrailers)
+        {
+            List<List<VehicleHash>> allVehicles = new List<List<VehicleHash>>();
+
+            List<VehicleHash> vehiclesList = new List<VehicleHash>();
+            List<VehicleHash> boatsList = new List<VehicleHash>();
+            List<VehicleHash> planesList = new List<VehicleHash>();
+            List<VehicleHash> helisList = new List<VehicleHash>();
+
+            vehiclesList.AddRange(bicycles);
+            vehiclesList.AddRange(compacts);
+            vehiclesList.AddRange(coupes);
+            vehiclesList.AddRange(emergency);
+            vehiclesList.AddRange(motorbikes);
+            vehiclesList.AddRange(military);
+            vehiclesList.AddRange(muscle);
+            vehiclesList.AddRange(offroad);
+            vehiclesList.AddRange(pickups);
+            vehiclesList.AddRange(suvs);
+            vehiclesList.AddRange(sedans);
+            vehiclesList.AddRange(service);
+            vehiclesList.AddRange(sports);
+            vehiclesList.AddRange(sportsClassic);
+            vehiclesList.AddRange(super);
+            vehiclesList.AddRange(trucks);
+            vehiclesList.AddRange(vans);
+            vehiclesList.AddRange(missingHashes);
+
+            if (specialClasses)
+            {
+                boatsList.AddRange(boats);
+                planesList.AddRange(planes);
+                helisList.AddRange(helicopters);
+            }
+            else
+            {
+                vehiclesList.AddRange(boats);
+                vehiclesList.AddRange(planes);
+                vehiclesList.AddRange(helicopters);
+            }
+
+            if (useTrailers) vehiclesList.AddRange(trailers);
+
+            allVehicles.Add(vehiclesList);
+            allVehicles.Add(boatsList);
+            allVehicles.Add(planesList);
+            allVehicles.Add(helisList);
+            return allVehicles;
+        }
 
     }
 }

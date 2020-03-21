@@ -6,6 +6,7 @@ namespace RandomVehicles
 {
     class Config
     {
+        public bool customVehicleList = true;
         public bool dlcVehicles = true;
         public int aiDrivingSpeed = 1000;
         public bool randomizeColor = true;
@@ -17,8 +18,8 @@ namespace RandomVehicles
         public bool maxModVehicles = false;
         public bool randomizeWeapons = true;
         public bool tintedWeapons = true;
+        public bool renderText = true;
         public bool debugMode = false;
-
 
         public Config() { }
 
@@ -38,6 +39,11 @@ namespace RandomVehicles
 
             writer.Write(String.Join(Environment.NewLine,
                 "[vehicles]",
+                "",
+                "; Customize spawn list",
+                "; If true then vehicles in \"RandomVehiclesList.txt\" are used, otherwise the bult-in list is used",
+                "; default: true",
+                "customVehicleList=true",
                 "",
                 "; If false then DLC vehicles that normally despawn instantly are not used. Install \"Add-On Vehicle Spawner\" for them to not despawn!",
                 "; default: true",
@@ -87,6 +93,10 @@ namespace RandomVehicles
                 "",
                 "[debug]",
                 "",
+                "; If set to false then the mod will never show any text or notifications on screen",
+                "; default: true",
+                "renderText=true",
+                "",
                 "; Show debug text and activate debug buttons (pageup + numpad keys)",
                 "; default: false",
                 "debugMode=false"));
@@ -114,9 +124,9 @@ namespace RandomVehicles
             }
 
             // Reading all lines from config file
-            string line = reader.ReadLine();
-            while (line != null)
+            while (!reader.EndOfStream)
             {
+                string line = reader.ReadLine();
                 string result = ProcessConfigLine(line);
 
                 if (result != "")
@@ -130,13 +140,11 @@ namespace RandomVehicles
                         errors.Add("Unable to parse parameter " + result + ". Using default value instead.");
                     }
                 }
-
-                line = reader.ReadLine();
             }
 
             reader.Close();
 
-            if (errors.Count > 0) errors.Add("Hint, you can delete the config file and a new, properly working one will be created");
+            if (errors.Count > 1) errors.Add("Hint, you can delete the config file and a new, properly working one will be created");
             return errors;
         }
 
@@ -150,6 +158,13 @@ namespace RandomVehicles
 
             switch (vals[0])
             {
+                case "customVehicleList":
+                    if (!bool.TryParse(vals[1], out customVehicleList))
+                    {
+                        customVehicleList = true;
+                        return vals[0];
+                    }
+                    break;
                 case "dlcVehicles":
                     if (!bool.TryParse(vals[1], out dlcVehicles))
                     {
@@ -224,6 +239,13 @@ namespace RandomVehicles
                     if (!bool.TryParse(vals[1], out tintedWeapons))
                     {
                         tintedWeapons = true;
+                        return vals[0];
+                    }
+                    break;
+                case "renderText":
+                    if (!bool.TryParse(vals[1], out renderText))
+                    {
+                        renderText = true;
                         return vals[0];
                     }
                     break;
